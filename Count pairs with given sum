@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Solution
+{
+public:
+  void PairsSum(int a[],int given_sum,int size)
+  {
+    int i,count=0;
+    map<int,int> map;
+    for(i=0;i<size;i++)
+      map[a[i]]++;//Creating a hash map which will store the frequencies of each element
+    for(i=0;i<size;i++)
+    {
+      count+=map[given_sum-a[i]];//checking if the number can be combined with other number to give a sum==given_sum
+      if(given_sum-a[i]==a[i])//checking for duplicate elements as well
+        count--;
+    }
+    cout<<count/2<<endl;
+  }
+};
+
+
+int main()
+{
+  int n,k,i;
+  cin>>n>>k;
+  int arr[n+1];
+  for(i=0;i<n;i++)
+    cin>>arr[i];
+  Solution obj;
+  obj.PairsSum(arr,k,n);
+  return 0;
+}
