@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Solution
+{
+public:
+   vector<int> CommonElements(int a[],int b[],int c[],int n1,int n2,int n3)
+   {
+       vector<int>ans;
+            sort(a,a+n1);
+            sort(b,b+n2);
+            sort(c,c+n3);
+            int x=a[0],y=b[0],z=c[0],i=0,j=0,k=0;// Here we use three pointer approach(which is same as two pointer approach)
+            while(i<n1 && j<n2 && k<n3)
+            {
+            if(a[i]==b[j]&&b[j]==c[k])
+            {
+                ans.push_back(a[i]);//if all the pointers are pointing to the same element in their respective arrays
+                i++;j++;k++;
+            }
+            else if(a[i]<b[j])//moving forward in array1
+               i++;
+            else if(b[j]<c[k])//moving forward in array2
+               j++;
+            else//moving forward in array3
+               k++;
+            int prev=a[i-1];
+            while(a[i]==prev)i++;//to avoid duplicate elements in array1
+            prev=b[j-1];
+            while(b[j]==prev)j++;//to avoid duplicate elements in array2
+            prev=c[k-1];
+            while(c[k]==prev)k++;//to avoid duplicate elements in array3
+            }
+            return ans;
+   }
+};
+
+
+int main()
+{
+  int n1, n2, n3; 
+  cin >> n1 >> n2 >> n3;
+  int A[n1];
+  int B[n2];
+  int C[n3];
+        
+  for (int i = 0; i < n1; i++) cin >> A[i];
+  for (int i = 0; i < n2; i++) cin >> B[i];
+  for (int i = 0; i < n3; i++) cin >> C[i];
+        
+  Solution obj;
+  vector<int>com=obj.CommonElements(A,B,C,n1,n2,n3);
+  for(int i=0;i<com.size();i++)
+    cout<<com[i]<<" ";
+  cout<<endl;
+  return 0;
+}
