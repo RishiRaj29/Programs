@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+//A Program to check if strings are rotations of each other or not
+/*
+Input-> ABCD CDAB
+Output->Yes
+*/
+
+class Solution
+{
+public:
+   bool check(string s1,string s2)
+   {
+    /*
+      string s3=s1;// This is the simplest way in which we rotate the string and check it.
+      char t=s1[s1.length()-1];
+      for(int i=s1.length()-1;i>=0;i--)
+        s1[i]=s1[i-1];
+      s1[0]=t;
+      while(s1!=s3&&s1!=s2)
+      {
+        t=s1[s1.length()-1]; 
+        for(int i=s1.length()-1;i>=0;i--)
+          s1[i]=s1[i-1];
+        s1[0]=t;
+      }
+      bool ans=(s1==s2)?true:false;
+      return ans;
+    */
+    if(s1.length()!=s2.length())
+      return false;
+    string s3=s1+s1;// There is a more efficient way in which we concatenate the string 
+    if(s3.find(s2)==string::npos)//and then we find s2 in the concatenated string
+      return false;
+    else 
+      return true;
+   }
+};
+
+
+int main()
+{
+        string s1,s2;
+        cin>>s1>>s2;
+        Solution obj;
+        bool flag=obj.check(s1,s2);
+        if(flag)
+          cout<<"Yes\n";
+        else
+          cout<<"No\n";
+        return 0;
+}
