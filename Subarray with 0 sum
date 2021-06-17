@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+/*
+Input->4
+       2 1 -5 7
+Output-> No
+
+Input->5
+       4 2 -3 1 6
+output-> Yes
+*/
+
+
+
+class Solution
+{
+public:
+   bool Find_SubArray(int a[],int n)
+   {
+     unordered_set<int>hash;
+        int sum=0;
+        for(int i=0;i<n;i++)
+        {
+            sum+=a[i];
+            if(sum==0||hash.find(sum)!=hash.end())// In the Hash Set if there is an element with value 0
+                 return true;// or if a value exists more than once then we can say a sub-array does exist.
+            hash.insert(sum);//else we will inert the value in the hash 
+        }
+        return false;
+   }
+};
+
+
+int main()
+{
+        int n;
+        cin>>n;
+        int i,a[n+1];
+        for(i=0;i<n;i++)
+          cin>>a[i];
+        Solution obj;
+        bool t=obj.Find_SubArray(a,n);
+        if(t)cout<<"Yes";
+        else cout<<"No";
+        return 0;
+}
