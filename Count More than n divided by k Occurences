@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+/*
+Input-> 8 4
+        3 1 2 2 1 2 3 3
+Output-> 2
+*/
+
+
+class Solution
+{
+public:
+   int CountFrequency(int a[],int n,int k)
+   {
+      map<int,int> m;//This question can be done by making a hash map and storing all the frequencies of each element.
+      for(int i=0;i<n;i++)
+        m[a[i]]++;
+      int cst=n/k,c=0;
+      for(auto i:m)
+      {
+        if(i.second>cst)// And then we compare each element's frequency with n/k
+          c++;
+      }
+      return c;
+   }
+};
+
+
+int main()
+{
+        int n,k;
+        cin>>n>>k;
+        int i,a[n+1];
+        for(i=0;i<n;i++)
+          cin>>a[i];
+        Solution obj;
+        int t=obj.CountFrequency(a,n,k);
+        cout<<t;
+        return 0;
+}
