@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+
+Input->
+2
+{([])}
+{
+
+Output->
+balanced
+not balanced
+*/
+
+class Solution
+{
+    public:
+    //Function to check if brackets are balanced or not.
+    bool ispar(string x)
+    {
+        stack<char>stack;
+        int i=0;
+        while(i<x.length())
+        {
+            if(x[i]=='{'||x[i]=='('||x[i]=='[')//if these characters come then we will simply push it onto the stack
+                stack.push(x[i]);
+            else 
+            {
+                if(stack.empty()==true)
+                    return false;
+                char t=stack.top();// if characters like } or ) or ] comes then we will simply compare it with the top of the stack.
+                if(x[i]=='}'&&t!='{')
+                    return false;
+                else if(x[i]==']'&&t!='[')
+                    return false;
+                else if(x[i]==')'&&t!='(')
+                    return false;
+                else
+                {
+                    stack.pop();
+                }
+            }
+            i++;
+        }
+        if(stack.empty()==false)
+           return false;
+        return true;
+    } 
+
+};
+
+
+int main()
+{
+   int t;
+   string a;
+   cin>>t;
+   while(t--)
+   {
+       cin>>a;
+       Solution obj;
+       if(obj.ispar(a))
+        cout<<"balanced"<<endl;
+       else
+        cout<<"not balanced"<<endl;
+   }
+}
