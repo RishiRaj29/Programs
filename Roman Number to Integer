@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/*
+Input->
+4
+V
+XXIII
+CMXVI
+VI
+
+Output->
+5
+23
+916
+6
+*/
+
+int romanToDecimal(string &);
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        string s;
+        cin >> s;
+        cout << romanToDecimal(s) << endl;
+    }
+}
+
+int romanToDecimal(string &str)
+{
+    int a,b,n=0,i;
+    map<char, int> map;
+    map['I']= 1;map['V']= 5;map['X']= 10;map['L']= 50;map['C']= 100;map['D']= 500;map['M']= 1000;//We create map for the so that it becomes handy to tell the decimal equivalent 
+    for(i=0;i<str.length()-1;i++)//of each roman character
+    {
+        a=map[str[i]];b=map[str[i+1]];
+        if(a>=b)//follow the basic steps of conversion 
+            n+=a;
+        else
+        {
+            n+=(b-a);
+            i++;
+        }
+    }
+    if(i!=str.length())
+    {
+        a=map[str[str.length()-1]];//since loop is running till length-1 so to include the last character we will do this
+        n+=a;
+    }
+    return n;
+}
