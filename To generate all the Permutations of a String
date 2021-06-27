@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+Input->
+1
+ABCD
+Output->
+ABCD
+ABDC
+ACBD
+ACDB
+ADCB
+ADBC
+BACD
+BADC
+BCAD
+BCDA
+BDCA
+BDAC
+CBAD
+CBDA
+CABD
+CADB
+CDAB
+CDBA
+DBCA
+DBAC
+DCBA
+DCAB
+DACB
+DABC
+*/
+
+void swap(char *a,char *b)
+{
+   char temp;
+   temp=*a;
+   *a=*b;
+   *b=temp;
+}
+void permutation(char *str,int left,int right)
+{
+   if(left==right)
+      cout<<str<<endl;
+   else
+   {
+      int i;
+      for(i=left;i<right;i++)
+      {
+         swap(str+left,str+i);//recurisve calls
+         permutation(str,left+1,right);
+         swap(str+left,str+i);//backtracking
+      }
+   }
+}
+
+int main() {
+   int t;
+   cin>>t;
+   while(t--)
+   {
+      string s;
+      cin>>s;
+      char *str;
+      str=&s[0];
+      int left=0,right=s.length();
+      permutation(str,left,right);
+   }
+   return 0;
+} 
