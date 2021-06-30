@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+/*In this implementaion enqueue has a time complexity of O(1) whereas the dequeue has time complexity of O(n)*/
+
+stack<int> org_stack,aux_stack;
+
+
+struct Queue
+{
+    void enqueue(int value)
+    {
+        org_stack.push(value);
+    }
+    int dequeue()
+    {
+        while(!org_stack.empty())
+        {
+            int x=org_stack.top();
+            org_stack.pop();
+            aux_stack.push(x);
+        }
+        int ans=aux_stack.top();
+        aux_stack.pop();
+        while(!aux_stack.empty())
+        {
+            int x=aux_stack.top();
+            aux_stack.pop();
+            org_stack.push(x);
+        }
+        return ans;
+    }
+};
+
+
+int main()
+{
+    Queue q;
+    int choice;
+    do
+    {
+        cout<<"Enter 1 to Enqueue\nEnter 2 to Dequeue\nEnter 3 to Exit";
+        cin>>choice;
+        switch(choice)
+        {
+            case 1:
+                int value;
+                cin>>value;
+                q.enqueue(value);
+                break;
+            case 2:
+                int r=q.dequeue();
+                cout<<"The Dequeued Element is "<<r<<endl;
+                break;
+        }
+    }while(choice!=3);
+    return 0;
+}
