@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+/*The time and space complexity for this solution is O(n)*/
+
+stack<int> Insert_at_Bottom(stack<int>s,int val)
+{
+    if(s.empty())
+        s.push(val);
+    else
+    {
+        stack<int>aux;//In this we use an auxillary stack .
+        while(!s.empty())//Push all the elements of the original stack to aux stack
+        {
+            int x=s.top();
+            aux.push(x);
+            s.pop();
+        }
+        s.push(val);//and then add the val at the bottom
+        while(!aux.empty())
+        {
+            int x=aux.top();
+            s.push(x);
+            aux.pop();
+        }
+    }
+    return s;
+}
+
+int main()
+{
+    stack<int>stack;
+    stack.push(4);
+    stack.push(3);
+    stack.push(2);
+    stack.push(1);
+    int value=5;
+    stack=Insert_at_Bottom(stack,value);
+    while(!stack.empty())
+    {
+        int x=stack.top();
+        cout<<x<<" ";
+        stack.pop();
+    }
+    return 0;
+}
