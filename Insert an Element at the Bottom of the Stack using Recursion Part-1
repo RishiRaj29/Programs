@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+/*The Recursive Method has a time complexity of O(n) and space complexity of O(1)*/
+
+stack<int> Insert_at_Bottom(stack<int>s,int val)//This is a recursive fun
+{
+    if(s.empty())
+        s.push(val);
+    else
+    {
+        int x=s.top();
+        s.pop();
+        s=Insert_at_Bottom(s,val);
+        s.push(x);
+    }
+    return s;
+}
+
+int main()
+{
+    stack<int>stack;
+    stack.push(4);
+    stack.push(3);
+    stack.push(2);
+    stack.push(1);
+    int value=5;
+    stack=Insert_at_Bottom(stack,value);
+    while(!stack.empty())
+    {
+        int x=stack.top();
+        cout<<x<<" ";
+        stack.pop();
+    }
+    return 0;
+}
