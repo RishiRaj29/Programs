@@ -1,0 +1,55 @@
+/*   Smallest subarray with sum greater than x   */
+
+/*
+
+INPUT->
+3
+8 10
+1 3 4 7 10 10 8 10
+5 9
+1 10 5 2 7
+6 51
+1 4 45 6 0 19
+
+OUTPUT->
+2
+1
+3
+
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main() 
+{
+   int t;cin>>t;
+   while(t--)
+   {
+      int i,n,x;cin>>n>>x;
+      int a[n+1];
+      for(i=0;i<n;i++)
+      {
+         cin>>a[i];
+      }
+      int sum=a[0],ans=n,slow=0,fast=1;//here we  use two pointer technique
+      while(fast<n)
+      {
+         while(sum<=x&&fast<n)// we cumulate the sum(by adding elements pointed by fast and incrementing it) until it becomes greater than x
+         {
+            sum+=a[fast];
+            fast++;
+         }
+         while(sum>x&&slow<n)// and then we subtract all elements pointed by slow from sum until it becomes less than x
+         {
+            if((fast-slow)<ans)
+               ans=fast-slow;
+            sum-=a[slow];
+            slow++;
+         }
+      }
+      cout<<ans<<endl;//do not forget to maintain the smallest possible length
+   }
+   return 0;
+} 
