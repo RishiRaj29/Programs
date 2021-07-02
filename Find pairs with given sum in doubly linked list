@@ -1,0 +1,70 @@
+/*       Find pairs with given sum in doubly linked list      */
+
+/* Given a sorted doubly linked list and we need to find all the pairs that sum up to a given value .
+The solution must have a time complexity of O(n) and space complexity of O(1)*/
+
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *prev;
+    struct Node *next;
+};
+
+void Insert(struct Node **head,int value)//This code Inserts the element at last of the list
+{
+    struct Node *new_node,*temp=*head;
+    new_node=(struct Node*)malloc(sizeof(struct Node));
+    new_node->data=value;
+    new_node->next=NULL;
+    if((*head)==NULL)
+    {
+        new_node->prev=NULL;
+        *head=new_node;
+    }
+    else
+    {
+        while(temp->next!=NULL)
+             temp=temp->next;
+        new_node->prev=temp;
+        temp->next=new_node;
+    }
+}
+
+void Pairs(struct Node *head,int k)// The optimized sol is as follows
+{
+     // we take two pointers start and last
+    struct Node *start=head,*last=head;//start will point to the first node
+    while(last->next!=NULL)
+        last=last->next;//last will point to last node
+    while(start!=last&&last->next!=start&&start!=NULL&&last!=NULL)// when start crosses last or both start and last point to the same node will be our termination cases for the while loop
+    {
+        int x=start->data,y=last->data;
+        if(x+y<k)// if sum<k then increment start
+            start=start->next;
+        else if(x+y>k)// if sum>k decrement last
+            last=last->prev;
+        else// if equal print them , increment start and decrement last
+        {
+            cout<<x<<","<<y<<endl;
+            start=start->next;
+            last=last->prev;
+        }
+    }
+}
+
+int main()
+{
+    struct Node *head=NULL;
+    Insert(&head,1);
+    Insert(&head,2);
+    Insert(&head,4);
+    Insert(&head,6);
+    Insert(&head,6);
+    Insert(&head,9);
+    Insert(&head,11);
+    Pairs(head,12);
+    return 0;
+}
