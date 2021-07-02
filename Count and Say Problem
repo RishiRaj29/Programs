@@ -1,0 +1,39 @@
+//You can find this problem on Leetcode 
+
+/* The first five numbers according to this problem are->
+
+ 1.     1
+ 2.     11
+ 3.     21
+ 4.     1211
+ 5.     111221 
+ 
+ */
+ 
+ 
+ // The solution to the problem is
+ 
+  string countAndSay(int n) {
+        if(n==1)
+            return ("1");
+        if(n==2)
+            return("11");
+        string s="11",temp;
+        for(int i=3;i<=n;i++)
+        {
+            temp="";int count=1;s=s+'$';
+            for(int j=1;j<s.length();j++)
+            {
+                if(s[j]==s[j-1])//if the terms are same then increment count
+                    count++;
+                else
+                {
+                    temp=temp+to_string(count);//convert count which is a int value to string 
+                    temp=temp+s[j-1];//then add the number whose freq you added in the prev step
+                    count=1;//Since there will always be a number with minimum freq of one hence we reinitialize count to 1
+                }
+            }
+            s=temp;
+        }
+        return s;
+    }
