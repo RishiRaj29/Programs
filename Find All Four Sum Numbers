@@ -1,0 +1,77 @@
+       /*          Find All Four Sum Numbers             */ 
+       
+       /* Approach -> Take two nested loops(i,j) and then take a variable sum = arr[i]+arr[j] . Now apply two pointer theorem to find the other two variables such that sum==k  */
+       
+       /*   Time Complexity : O(n^3)   */
+       
+#include<bits/stdc++.h>
+using namespace std;
+
+
+vector<vector<int>> fourSum(vector<int> arr,int k)
+{
+        int i,j,l,r;
+        int n=arr.size();
+        sort(arr.begin(),arr.end());
+        vector<vector<int>>ans;
+        for(i=0;i<n-3;i++)
+        {
+            for(j=i+1;j<n-2;j++)
+            {
+                l=j+1;r=n-1;
+                while(l<r)
+                {
+                    vector<int>v;
+                    if(arr[r]+arr[l]+arr[i]+arr[j]==k)
+                    {
+                        v.push_back(arr[i]);
+                        v.push_back(arr[j]);
+                        v.push_back(arr[l]);
+                        v.push_back(arr[r]);
+                        ans.push_back(v);
+                        l++;
+                        r--;
+                    }
+                    else if(arr[r]+arr[l]+arr[i]+arr[j]<k)
+                    {
+                        l++;
+                    } 
+                    else
+                    {
+                        r--;
+                    }
+                }
+            }
+        }
+        sort(ans.begin(), ans.end());
+        ans.erase(unique(ans.begin(), ans.end()), ans.end());//this will erase all the duplicate quadruples
+        return ans;
+}
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n,k,x;
+        cin>>n>>k;
+        vector<int>arr;
+        for(int i=0;i<n;i++)
+        {
+            cin>>x;
+            arr.push_back(x);
+        }
+        cout<<"The Quadruples that sum up to k are - \n";
+        vector<vector<int> > ans = fourSum(arr, k);
+        for (auto &v : ans) {
+            for (int &u : v) {
+                cout << u << " ";
+            }
+            cout <<endl;
+        }
+        if (ans.empty()) {
+            cout << -1;
+        }
+    }
+    return 0;
+}
