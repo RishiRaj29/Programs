@@ -1,0 +1,70 @@
+                /*        FIND THE TRIPLETS IN ARRAY WHICH SUM UP TO A GIVEN VALUE         */
+      
+/*
+INPUT->
+2
+6 13 
+1 4 45 6 10 8
+5 10
+1 2 4 3 6
+
+OUTPUT->
+Yes
+Yes
+*/
+
+/* APPROACH->   A naive approach will be to check for all the triplets by taking nested loops . But there exists a solution with Time Complexity O(n2). 
+                In this we will try to find a pair for each element which will sum to the givem value. 
+                This question is now same as finding pair in array which sum up to a given value.
+                You may refer and try to solve that question first.
+*/
+
+// Solution->
+
+#include<bits/stdc++.h>
+using namespace std;
+
+bool FindTriplet(int arr[],int n,int x)
+{
+   int i,left,right,k;
+   for(i=0;i<n-2;i++)
+   {
+      k=x;
+      k=k-arr[i];left=i+1;right=n-1;
+      while(left<right)
+      {
+         if(arr[left]+arr[right]==k)
+         {
+            return true;
+         }
+         else if(arr[left]+arr[right]<k)
+            left++;
+         else
+            right--;
+      }
+   }
+   return false;
+}
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+      int i,n,x;
+      cin>>n>>x;
+      int arr[n+1];
+      for(i=0;i<n;i++)
+      {
+         cin>>arr[i];
+      }
+      sort(arr,arr+n);
+      bool flag=FindTriplet(arr,n,x);
+      if(flag)
+         cout<<"Yes\n";
+      else
+         cout<<"No\n";
+    }
+    return 0;
+}
