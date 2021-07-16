@@ -1,0 +1,116 @@
+/*                The task is to find the smallest number with given sum of digits as sum_of_digits and number of digits as no_of_digits.              */
+
+/* 
+INPUT->
+        5
+        9 2
+        20 3
+        1 6
+        6 6
+        70 5
+OUTPUT->
+     18
+     299
+     100000
+     100005
+     -1
+*/
+
+//SOLUTION->
+
+// { Driver Code Starts
+#include<bits/stdc++.h> 
+using namespace std; 
+
+ // } Driver Code Ends
+class Solution{   
+public:
+    string smallestNumber(int s, int d){
+        // code here 
+        if(d*9<s)
+           return "-1";
+        else
+        {
+            string n;
+            while(s>9&&s-9!=0&&d>1)
+            {
+                s-=9;
+                d--;
+                n=n+'9';
+            }
+            while(s>8&&s-8!=0&&d>1)
+            {
+                s-=8;
+                d--;
+                n=n+'8';
+            }
+            while(s>7&&s-7!=0&&d>1)
+            {
+                s-=7;
+                d--;
+                n=n+'7';
+            }
+            while(s>6&&s-6!=0&&d>1)
+            {
+                s-=6;
+                d--;
+                n=n+'6';
+            }
+            while(s>5&&s-5!=0&&d>1)
+            {
+                s-=5;
+                d--;
+                n=n+'5';
+            }
+            while(s>4&&s-4!=0&&d>1)
+            {
+                s-=4;
+                d--;
+                n=n+'4';
+            }
+            while(s>3&&s-3!=0&&d>1)
+            {
+                s-=3;
+                d--;
+                n=n+'3';
+            }
+            while(s>2&&s-2!=0&&d>1)
+            {
+                s-=2;
+                d--;
+                n=n+'2';
+            }
+            while(s>1&&s-1!=0&&d>1)
+            {
+                s-=1;
+                d--;
+                n=n+'1';
+            }
+            while(d!=1)
+            {
+                n=n+'0';
+                d--;
+            }
+            if(d==1)
+            {
+                n=n+to_string(s);
+            }
+            reverse(n.begin(),n.end());
+            return n;
+        }
+    }
+};
+
+int main() 
+{ 
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int sum_of_digits,no_of_digits;
+        cin >> sum_of_digits >> no_of_digits;
+        Solution ob;
+        cout << ob.smallestNumber(sum_of_digits,no_of_digits) << endl;
+    }
+    return 0; 
+} 
