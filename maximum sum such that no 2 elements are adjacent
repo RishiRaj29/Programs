@@ -1,0 +1,59 @@
+                 /*      maximum sum such that no 2 elements are adjacent in an array      */
+                 
+     //PROBLEM LINK ->   https://practice.geeksforgeeks.org/problems/stickler-theif-1587115621/1
+ 
+/*
+INPUT->
+3
+6
+5 5 10 100 10 5
+3
+1 2 3
+5
+4 8 3 2 10
+
+OUTPUT->
+110
+4
+18
+*/
+
+
+/*  We will solve the problem by dynamic programming.In this we will use the formula   max( arr[i] + arr[i-2] , arr[i-1] ) for each index.
+NOTE-> The approach of adding all the value at even indices and odd indices and then comparing them  won't work for the third input.
+*/
+
+//Solution->
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int max_sum(int arr[],int n)
+{
+    int dp[n+1];
+    dp[0]=arr[0];
+    dp[1]=max(arr[0],arr[1]);
+    for(int i=2;i<n;i++)
+        dp[i]=max((arr[i]+dp[i-2]),dp[i-1]);
+    int ans=dp[n-1];
+    return ans;
+}
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n,i;
+        cin>>n;
+        int arr[n+1];
+        for(i=0;i<n;i++)
+        {
+            cin>>arr[i];
+        }
+        int ans=max_sum(arr,n);
+        cout<<ans<<endl;
+    }
+    return 0;
+}
