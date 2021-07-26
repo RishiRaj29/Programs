@@ -1,0 +1,78 @@
+             /*      Common elements in all rows of a given matrix      */
+             
+//Problem Link->  https://www.geeksforgeeks.org/common-elements-in-all-rows-of-a-given-matrix/
+
+/*
+INPUT->
+1
+4 5
+1 2 1 4 8
+3 7 8 5 1
+8 7 7 3 1
+8 1 2 7 9 
+
+OUTPUT->
+1 8 
+*/
+
+/* Approach-> We will traverse through the matrix and Increment the freq of each value by one .
+  If that value comes again in the same row then we will first check it if its freq has been stored . If yes then we will ignore it or else store the freq.
+  So i have used to maps 1)A hash map  2) To check for duplicate elements in each row I have made a map called flag
+*/
+
+//Solution->
+
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+    int value=0;
+};
+
+class Solution{
+public:
+   void common_elements(vector<vector<int> > arr, int n, int m) {
+    
+       map<int,int>hash;
+       int i,j;
+       for(i=0;i<n;i++)
+       {
+            map<int,Node>flag;    
+            for(j=0;j<m;j++)
+            {
+                if(flag[arr[i][j]].value==0)
+                {
+                    hash[arr[i][j]]++;
+                    flag[arr[i][j]].value=1;
+                }
+            }
+       }
+       for(auto it:hash)
+       {
+            if(it.second==n)
+                cout<<it.first<<" ";
+       }
+       cout<<endl;
+   }
+
+};
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        vector< vector<int> > arr(n,vector<int>(m));
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                cin>>arr[i][j];
+            }
+        }
+        Solution ob;
+        ob.common_elements(arr, n, m);
+    }
+    return 0;
+}
+ 
