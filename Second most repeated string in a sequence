@@ -1,0 +1,75 @@
+                 /*                   Second most repeated string in a sequence                   */
+                 
+// PROBLEM LINK->   https://practice.geeksforgeeks.org/problems/second-most-repeated-string-in-a-sequence0534/1
+
+
+/*
+INPUT->
+2
+6
+aaa bbb ccc bbb aaa aaa
+6
+geek for geek for geek aaa
+
+OUTPUT->
+bbb
+for
+*/
+
+
+
+/* APPROACH-> Store the frequency of all the strings in a hash map. Check the second highest of all the freuqencies. 
+              Then, traverse the hash map and find the string with that frequency 
+              (here, we use the fact that there's only one string with second highest frequency).*/
+
+
+//SOLUTION->
+
+#include<bits/stdc++.h>
+using namespace std;
+
+ 
+class Solution
+{
+  public:
+    string secFrequent (string arr[], int n)
+    {
+        vector<int>freq;
+        map<string,int>map;
+        for(int i=0;i<n;i++)
+        {
+            map[arr[i]]++;
+        }
+        for(auto i:map)
+        {
+            freq.push_back(i.second);
+        }
+        sort(freq.begin(), freq.end());
+        int ans_freq=freq[freq.size()-2];
+        string ans;
+        for(auto i:map)
+        {
+            if(i.second==ans_freq)
+            {
+                ans=i.first;
+                break;
+            }
+        }
+        return ans;
+    }
+};
+
+
+int main()
+{
+    int t; cin >> t;
+    while (t--)
+    {
+        int n; cin >> n;
+        string arr[n];
+        for (int i = 0; i < n; ++i)
+            cin >> arr[i];
+        Solution ob;
+        cout << ob.secFrequent (arr, n) << endl;
+    }
+}
