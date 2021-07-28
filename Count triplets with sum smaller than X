@@ -1,0 +1,49 @@
+            /*                    Count triplets with sum smaller than X                      */
+            
+//Problem Link->  https://practice.geeksforgeeks.org/problems/count-triplets-with-sum-smaller-than-x5549/1
+
+//Solution->
+
+#include<bits/stdc++.h>
+using namespace std;
+
+long long countTriplets(long long arr[], int n, long long sum)
+{
+    sort(arr,arr+n);
+    int i;
+    long long count=0;
+    for(i=0;i<n-2;i++)
+    {
+        int left=i+1,right=n-1;
+        while(left<right)
+        {
+            if(arr[i]+arr[left]+arr[right]<sum)
+            {
+                count+=(right-left);
+                left++;
+            }
+            else
+                right--;
+        }
+    }
+    return count;
+}
+
+
+int main()
+ {
+    int t;  
+    cin>>t;
+    while(t--)
+    {
+        int n; 
+        long long sum;
+        cin>>n>>sum;
+        long long arr[n+1];
+        for(int i=0;i<n;i++)
+            cin>>arr[i];
+        long long ans=countTriplets(arr,n,sum);
+        cout<<ans<<endl;
+    }
+    return 0;
+} 
