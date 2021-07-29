@@ -1,0 +1,79 @@
+          /*              Min Number of Flips                     */
+          
+// Problem Link->https://practice.geeksforgeeks.org/problems/min-number-of-flips3210/1
+
+/*
+INPUT->
+4
+001
+0001010111
+0000000000
+011
+
+OUTPUT->
+1
+2
+5
+1
+*/
+
+/*
+Approach-> There are only two possibilities of string i.e. "01010101...." or "10101010...." . We will compare given strings we these two and return the minimum value .
+*/
+
+
+//Solution->
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int minFlips(string s)
+{
+    int n=s.length(),c1=0,c2=0,c;
+    string a="01",b="10",s1,s2;
+    int i;
+    if(n%2!=0)
+    {
+        for(i=1;i<=n-1;i+=2)
+        {
+            s1+=a;
+            s2+=b;
+        }
+        s1+='0';
+        s2+='1';
+    }
+    else
+    {
+        for(i=1;i<=n;i+=2)
+        {
+            s1+=a;
+            s2+=b;
+        }
+    }
+    for(i=0;i<n;i++)
+    {
+        if(s[i]!=s1[i])
+            c1++;
+    }
+    for(i=0;i<n;i++)
+    {
+        if(s[i]!=s2[i])
+            c2++;
+    }
+    c=min(c1,c2);
+    return c;
+}
+
+int main()
+ {
+    int t;  
+    cin>>t;
+    while(t--)
+    {
+        string s;
+        cin>>s;
+        int ans = minFlips(s);
+        cout<<ans<<endl;
+    }
+    return 0;
+} 
