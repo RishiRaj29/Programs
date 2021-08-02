@@ -1,0 +1,90 @@
+/*                       Shop in Candy Store                        */
+
+//Problem Link->  https://practice.geeksforgeeks.org/problems/shop-in-candy-store1145/1
+
+/*
+INPUT->
+2
+4 2 
+3 2 1 4
+5 4
+3 2 1 4 5
+
+OUTPUT->
+3 7
+1 5
+*/
+
+//Aproach-> Sort the candies array and then apply two pointer technique
+
+//Solution->
+
+#include<bits/stdc++.h> 
+using namespace std; 
+
+
+class Solution
+{
+public:
+    vector<int> candyStore(int candies[], int n, int k)
+    {
+        int minimum_cost=0,maximum_cost=0;
+        sort(candies,candies+n);
+        int a=1,b=n-1,x=k;
+        minimum_cost=candies[0];
+        while(a<=b)
+        {
+            if(x==0)
+            {
+                minimum_cost+=candies[a];
+                a++;
+                x=k;
+            }
+            else
+            {
+                b--;x--;
+            }
+        }
+        maximum_cost=candies[n-1];
+        a=n-2;b=0;x=k;
+        while(b<=a)
+        {
+            if(x==0)
+            {
+                maximum_cost+=candies[a];
+                a--;
+                x=k;
+            }
+            else
+            {
+                b++;x--;
+            }
+        }
+        vector<int>ans;
+        ans.push_back(minimum_cost);
+        ans.push_back(maximum_cost);
+        return ans;
+    }
+};
+
+int main()
+{
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        int N, K;
+        cin >> N >> K;
+        int candies[N];
+
+        for (int i = 0; i < N; i++)
+        {
+            cin >> candies[i];
+        }
+
+        Solution ob;
+        vector<int> cost = ob.candyStore(candies, N, K);
+        cout << cost[0] << " " << cost[1] << endl;
+    }
+    return 0;
+}  
