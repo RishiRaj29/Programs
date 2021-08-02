@@ -1,0 +1,55 @@
+/*                 Convert a sentence into its equivalent mobile numeric keypad sequence                    */
+
+//Problem Link-> https://www.geeksforgeeks.org/convert-sentence-equivalent-mobile-numeric-keypad-sequence/
+
+//Approach-> Store the corresponding value of each character w.r.t keypad. Eg-> for 'B' the value will be 22. 
+             Then iterate through the given string and print the values accordingly.
+             
+//Solution->
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void Convert(string s)
+{
+    map<char,int>keypad;
+    keypad.insert(pair<char,int>('A',2));
+    keypad.insert(pair<char,int>('B',22));
+    keypad.insert(pair<char,int>('C',222));
+    keypad.insert(pair<char,int>('D',3));
+    keypad.insert(pair<char,int>('E',33));
+    keypad.insert(pair<char,int>('F',333));
+    keypad.insert(pair<char,int>('G',4));
+    keypad.insert(pair<char,int>('H',44));
+    keypad.insert(pair<char,int>('I',444));
+    keypad.insert(pair<char,int>('J',5));
+    keypad.insert(pair<char,int>('K',55));
+    keypad.insert(pair<char,int>('L',555));
+    keypad.insert(pair<char,int>('M',6));
+    keypad.insert(pair<char,int>('N',66));
+    keypad.insert(pair<char,int>('O',666));
+    keypad.insert(pair<char,int>('P',7));
+    keypad.insert(pair<char,int>('Q',77));
+    keypad.insert(pair<char,int>('R',777));
+    keypad.insert(pair<char,int>('S',7777));
+    keypad.insert(pair<char,int>('T',8));
+    keypad.insert(pair<char,int>('U',88));
+    keypad.insert(pair<char,int>('V',888));
+    keypad.insert(pair<char,int>('W',9));
+    keypad.insert(pair<char,int>('X',99));
+    keypad.insert(pair<char,int>('Y',999));
+    keypad.insert(pair<char,int>('Z',9999));
+    keypad.insert(pair<char,int>(' ',0));
+    for(int i=0;i<s.length();i++)
+    {
+        cout<<keypad[s[i]];
+    }
+    cout<<endl;
+}
+
+int main()
+ {
+    string s="HELLO WORLD";
+    Convert(s);
+    return 0;
+} 
