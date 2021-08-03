@@ -1,0 +1,80 @@
+/*                           Greedy Algorithm to find Minimum number of Coins                       */
+
+//Problem Link->  https://www.geeksforgeeks.org/greedy-algorithm-to-find-minimum-number-of-coins/
+
+/*
+INPUT->
+2
+70
+121
+OUTPUT->
+2 
+3
+*/
+
+/* Approach -> Use greedy approach . The code below will also give your a very clear idea */
+
+
+//Solution->
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int count=0,v;
+        cin>>v;
+        while(v>=1000)
+        {
+            v-=1000;
+            count++;
+        }
+        while(v>=500)
+        {
+            v-=500;
+            count++;
+        }
+        while(v>=100)
+        {
+            v-=100;
+            count++;
+        }
+        while(v>=50)
+        {
+            v-=50;
+            count++;
+        }
+        while(v>=20)
+        {
+            v-=20;
+            count++;
+        }
+        while(v>=10)
+        {
+            v-=10;
+            count++;
+        }
+        while(v>=5)
+        {
+            v-=5;
+            count++;
+        }
+        while(v>=2)
+        {
+            v-=2;
+            count++;
+        }
+        while(v>=1)
+        {
+            v-=1;
+            count++;
+        }
+        cout<<count<<endl;
+    }
+    return 0;
+}
