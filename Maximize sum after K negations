@@ -1,0 +1,68 @@
+/*                                 Maximize sum after K negations                                     */
+
+//Problem Link-> https://practice.geeksforgeeks.org/problems/maximize-sum-after-k-negations1149/1
+
+/*
+Input->
+5
+5 1
+1 2 -3 4 5 
+10 5
+5 -2 5 -4 5 -12 5 5 5 20 
+5 5
+1 2 3 4 5
+5 10
+-1 -2 -3 -4 -5
+4 2
+-9 -8 -7 -5
+Output->
+15
+68
+13
+13
+5
+*/
+
+/* Approach-> Sort the array. Then iterate through start and make all negative numbers positive . Sort the array again.
+              If k>0 then if k is odd make arr[0] element negative else positive. Calculate sum and print it.         */
+
+//Solution->
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n,k;
+        cin>>n>>k;
+        int arr[n+1];
+        for(int i=0;i<n;i++)
+            cin>>arr[i];
+         sort(arr,arr+n);
+        int i;
+        for(i=0;i<=n-1&&k>0;i++)
+        {
+            if(arr[i]<0)
+            {
+                arr[i]=arr[i]*(-1);
+                k--;
+            }
+        }
+        sort(arr,arr+n);
+        if(k>0)
+        {
+            if(k%2!=0)
+            {
+                arr[0]=arr[0]*(-1);
+            }
+        }
+        int sum=0;
+        cout<<accumulate(arr,arr+n,sum)<<endl;
+    }
+    return 0;
+}
