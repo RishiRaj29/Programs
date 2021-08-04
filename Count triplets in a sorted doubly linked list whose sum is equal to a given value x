@@ -1,0 +1,78 @@
+/*                   Count triplets in a sorted doubly linked list whose sum is equal to a given value x                  */
+
+/* Approach-> The most efficient method is that we try to find pairs for each Node of the list which sum up to k . To find the pairs we can use the two pointer approach.
+              For in depth understanding attempt the question "Find pairs with given sum in doubly linked list" first .             */
+
+//Solution->
+
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *prev;
+    struct Node *next;
+};
+
+void Insert(struct Node **head,int value)//This code Inserts the element at last of the list
+{
+    struct Node *new_node,*temp=*head;
+    new_node=(struct Node*)malloc(sizeof(struct Node));
+    new_node->data=value;
+    new_node->next=NULL;
+    if((*head)==NULL)
+    {
+        new_node->prev=NULL;
+        *head=new_node;
+    }
+    else
+    {
+        while(temp->next!=NULL)
+             temp=temp->next;
+        new_node->prev=temp;
+        temp->next=new_node;
+    }
+}
+
+void Triplets(struct Node *head,int k)
+{
+    struct Node *temp=head,*left,*right,*last=head;
+    while(last->next!=NULL)
+        last=last->next;
+    while(temp->next!=NULL)
+    {
+        left=temp->next;
+        right=last;
+        while((left->data)<(right->data))
+        {
+            if((temp->data)+(left->data)+(right->data)>k)
+                right=right->prev;
+            else if((temp->data)+(left->data)+(right->data)<k)
+                left=left->next;
+            else
+            {
+                cout<<temp->data<<","<<left->data<<","<<right->data<<"\n";
+                right=right->prev;
+                left=left->next;
+            }
+        }
+        temp=temp->next;
+    }
+}
+
+
+int main()
+{
+    struct Node *head=NULL;
+    Insert(&head,1);
+    Insert(&head,2);
+    Insert(&head,4);
+    Insert(&head,5);
+    Insert(&head,6);
+    Insert(&head,8);
+    Insert(&head,9);
+    cout<<"The Triplets which sum to the given value are-\n";
+    Triplets(head,15);
+    return 0;
+}
