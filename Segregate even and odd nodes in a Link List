@@ -1,0 +1,112 @@
+/*                          Segregate even and odd nodes in a Link List                         */
+
+//Problem Link-> https://practice.geeksforgeeks.org/problems/segregate-even-and-odd-nodes-in-a-linked-list5035/1
+
+//Solution->
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+void Insert(struct Node **head,int value)
+{
+    struct Node *new_node,*temp=*head;
+    new_node=(struct Node*)malloc(sizeof(struct Node));
+    new_node->data=value;
+    new_node->next=NULL;
+    if((*head)==NULL)
+        *head=new_node;
+    else
+    {
+        while(temp->next!=NULL)
+             temp=temp->next;
+        temp->next=new_node;
+    }
+}
+
+
+void Display(struct Node *head)
+{
+    struct Node *temp=head;
+    while(temp->next!=NULL)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<temp->data<<endl;
+}
+
+
+Node* divide(int n,Node **head)
+{
+    vector<int>even,odd;
+    Node *temp=*head;
+    while(temp->next!=NULL)
+    {
+        if(temp->data%2==0)
+            even.push_back(temp->data);
+        else
+            odd.push_back(temp->data);
+        temp=temp->next;
+    }
+    if(temp->data%2==0)
+        even.push_back(temp->data);
+    else
+        odd.push_back(temp->data);
+    *head=NULL;
+    for(int i=0;i<even.size();i++)
+    {
+        struct Node *new_node,*temp=(*head);
+        new_node=(struct Node*)malloc(sizeof(struct Node));
+        new_node->data=even[i];
+        new_node->next=NULL;
+        if((*head)==NULL)
+            (*head)=new_node;
+        else
+        {
+            while(temp->next!=NULL)
+                 temp=temp->next;
+            temp->next=new_node;
+        }
+    }
+    for(int i=0;i<odd.size();i++)
+    {
+        struct Node *new_node,*temp=(*head);
+        new_node=(struct Node*)malloc(sizeof(struct Node));
+        new_node->data=odd[i];
+        new_node->next=NULL;
+        if((*head)==NULL)
+            (*head)=new_node;
+        else
+        {
+            while(temp->next!=NULL)
+                 temp=temp->next;
+            temp->next=new_node;
+        }
+    }
+    return (*head);
+}
+
+int main()
+{
+    struct Node *head=NULL,*even_head=NULL,*odd_head=NULL;
+    Insert(&head,17);
+    Insert(&head,15);
+    Insert(&head,8);
+    Insert(&head,9);
+    Insert(&head,2);
+    Insert(&head,4);
+    Insert(&head,6);
+    cout<<"The Original List is as follows-\n";
+    Display(head);
+    cout<<"The List now is->\n";
+    head=divide(7,&head);
+    Display(head);
+    return 0;
+}
