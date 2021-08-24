@@ -1,0 +1,41 @@
+/*                               Remove Consecutive Characters                             */
+
+//Problem Link-> https://www.geeksforgeeks.org/remove-consecutive-duplicates-string/
+
+//Solution->
+
+#include <bits/stdc++.h> 
+using namespace std; 
+
+class Solution{
+    public:
+    string removeConsecutiveCharacter(string s)
+    {
+        string ans="";
+        char t=s[0];
+        ans+=t;
+        for(int i=1;i<s.length();i++)
+        {
+            if(s[i]!=t)
+            {
+                ans+=s[i];
+                t=s[i];
+            }
+        }
+        return ans;
+    }
+};
+
+int main() 
+{ 
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        string s;
+        cin>>s;
+        Solution ob;
+        cout<<ob.removeConsecutiveCharacter(s)<<endl;
+    }
+    return 0;
+} 
