@@ -1,0 +1,80 @@
+ /*                                      Preorder Traversal of a tree both using recursion and Iteration                                    */
+ 
+ // Code->
+ 
+ #include<iostream>
+#include<stack>
+using namespace std;
+
+struct Node
+{
+    Node *left;
+    Node *right;
+    int data;
+    Node(int value)
+    {
+        this->data=value;
+        this->left=NULL;
+        this->right=NULL;
+    }
+};
+
+void Preorder_recursion(Node *root)
+{
+    if(root==NULL)
+        return ;
+    cout<<root->data<<"  ";
+    Preorder_recursion(root->left);
+    Preorder_recursion(root->right);
+}
+
+void Preorder_iteration(Node *root)
+{
+    stack<Node*>stack;
+    Node *temp=root;
+    while(1)
+    {
+        while(temp)
+        {
+            cout<<temp->data<<"  ";
+            stack.push(temp);
+            temp=temp->left;
+        }
+        if(stack.empty())
+            break;
+        temp=stack.top()->right;
+        stack.pop();
+    }
+}
+
+int main()
+{
+    /*   Construct the following Tree->
+
+                        1
+
+                  2           3
+
+              4      5     6      7
+
+           8    9               10    11
+    */
+
+    Node *root=new Node(1);
+    root->left=new Node(2);
+    root->right=new Node(3);
+    root->left->left=new Node(4);
+    root->left->right=new Node(5);
+    root->right->left=new Node(6);
+    root->right->right=new Node(7);
+    root->left->left->left=new Node(8);
+    root->left->left->right=new Node(9);
+    root->right->right->left=new Node(10);
+    root->right->right->right=new Node(11);
+    cout<<"The Preorder Traversal Recursively is as follows-\n";
+    Preorder_recursion(root);
+    cout<<endl;
+    cout<<"The Preorder Traversal Iteratively is as follows->\n";
+    Preorder_iteration(root);
+    return 0;
+}
