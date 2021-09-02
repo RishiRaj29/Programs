@@ -1,0 +1,291 @@
+/*                                           Binary Search Tree Program                                           */
+
+// Code->
+
+#include<iostream>
+#include<stdio.h>
+#include<conio.h>
+using namespace std;
+
+struct TreeNode
+{
+	public:
+		TreeNode *left;
+		int value;
+		TreeNode *right;
+};
+
+void Insert(TreeNode **root,int data)
+{
+    TreeNode *new_node=new TreeNode();
+    new_node->value=data;
+    new_node->left=NULL;
+    new_node->right=NULL;
+    TreeNode *temp=(*root);
+    if((*root)==NULL)
+    {
+        *root=new_node;
+    }
+    else
+    {
+        while(1)
+        {
+            if(temp->value==data)
+            {
+                delete new_node;
+                cout<<"Duplicate Values are not Allowed\n";
+                break;
+            }
+            else if(data>temp->value)
+            {
+                if(temp->right==NULL)
+                {
+                    temp->right=new_node;
+                    break;
+                }
+                else
+                    temp=temp->right;
+            }
+            else if(data<temp->value)
+            {
+                if(temp->left==NULL)
+                {
+                    temp->left=new_node;
+                    break;
+                }
+                else
+                    temp=temp->left;
+            }
+        }
+    }
+    cout<<"Operation Done\n";
+}
+
+void Preorder(TreeNode *p)
+{
+    if(p==NULL)
+        return;
+    else
+    {
+        cout<<p->value<<" ";
+        Preorder(p->left);
+        Preorder(p->right);
+    }
+}
+
+void Inorder(TreeNode *p)
+{
+    if(p==NULL)
+        return;
+    else
+    {
+        Inorder(p->left);
+        cout<<p->value<<" ";
+        Inorder(p->right);
+    }
+}
+
+void Postorder(TreeNode *p)
+{
+    if(p==NULL)
+        return;
+    else
+    {
+        Postorder(p->left);
+        Postorder(p->right);
+        cout<<p->value<<" ";
+    }
+}
+
+void Deletion(TreeNode **root,int key)
+{
+     TreeNode *curr=*root,*par=*root,*chl=*root;
+        if(*root==NULL)
+        {
+            cout<<"Operation Performed\n";
+            return ;
+        }
+        else
+        {
+            if(key>curr->value)curr=curr->right;
+            else if(key<curr->value)curr=curr->left;
+            while(1)
+            {   //Traversal to reach the node with value=key
+                if(key>curr->value)
+                {
+                    par=curr;
+                    curr=curr->right;
+                }
+                else if(key<curr->value)
+                {
+                    par=curr;
+                    curr=curr->left;
+                }
+                else//deletion of that Node
+                {
+                    if(curr->left==NULL&&curr->right==NULL)//If the Node has no children
+                    {
+                        if(par->left==curr)
+                        {
+                            par->left=NULL;
+                            delete curr;
+                        }
+                        else
+                        {
+                            par->right=NULL;
+                            delete curr;
+                        }
+                    }
+                    else if(curr->left==NULL||curr->right==NULL)//If the  Node has 1 child
+                    {
+                        if(par==curr)
+                        {
+                            if(par->right!=NULL)
+                            {
+                                TreeNode *t=par->right;
+                                curr=par->right;
+                                while(curr->left!=NULL)
+                                {
+                                    t=curr;
+                                    curr=curr->left;
+                                }
+                                par->value=curr->value;
+                                if(curr->right!=NULL)
+                                {
+                                    t->left=curr->right;
+                                }
+                                else
+                                {
+                                    t->left=NULL;
+                                }
+                                delete curr;
+                            }
+                            else
+                            {
+                                TreeNode *t=par->left;
+                                curr=par->left;
+                                while(curr->right!=NULL)
+                                {
+                                    t=curr;
+                                    curr=curr->right;
+                                }
+                                par->value=curr->value;
+                                if(curr->left!=NULL)
+                                {
+                                    t->right=curr->left;
+                                }
+                                else
+                                {
+                                    t->right=NULL;
+                                }
+                                delete curr;
+                            }
+                        }
+                        else if(par->right==curr)
+                        {
+                            if(curr->right)
+                                par->right=curr->right;
+                            else
+                                par->right=curr->left;
+                        }
+                        else
+                        {
+                             if(curr->right)
+                                par->left=curr->right;
+                            else
+                                par->left=curr->left;
+                        }
+                    }
+
+                    else//If the  Node has 2 children
+                    {
+                        if(curr->left!=NULL)
+                        {
+                            TreeNode *pre=curr->left,*Parpre=curr;
+                            while(pre->right!=NULL)
+                            {
+                                Parpre=pre;
+                                pre=pre->right;
+                            }
+                            curr->value=pre->value;
+                            if(pre->left!=NULL)
+                            {
+                                Parpre->right=pre->left;
+                                delete pre;
+                            }
+                            else
+                            {
+                                Parpre->right=NULL;
+                                delete pre;
+                            }
+                        }
+                        else
+                        {
+                            TreeNode *suc=curr->right,*Parpre=curr;
+                            while(suc->left!=NULL)
+                            {
+                                Parpre=suc;
+                                suc=suc->left;
+                            }
+                            curr->value=suc->value;
+                            if(suc->right!=NULL)
+                            {
+                                Parpre->left=suc->right;
+                                delete suc;
+                            }
+                            else
+                            {
+                                Parpre->left=NULL;
+                                delete suc;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        cout<<"Operation Performed\n";
+}
+
+
+int main()
+{
+    struct TreeNode *root=NULL;
+    int data,option;
+    while(1)
+    {
+        system("cls");
+        printf("-----BINARY SEARCH TREE-----");
+        printf("\nPreorder");
+        Preorder(root);
+        printf("\nInorder-");
+        Inorder(root);
+        printf("\nPostorder-");
+        Postorder(root);
+        printf("\n1.Insertion()");
+        printf("\n2.Deletion()");
+        printf("\n3.Exit");
+        cin>>option;
+        switch(option)
+        {
+        case 1:
+            printf("\nEnter the Value");
+            cin>>data;
+            Insert(&root,data);
+            break;
+        case 2:
+            printf("\nEnter the Value");
+            cin>>data;
+            Deletion(&root,data);
+            break;
+        case 3:
+            printf("\nThank You");
+            exit(0);
+        default:
+            printf("\nInvalid Choice");
+            break;
+        }
+        getch();
+    }
+	return 0;
+}
