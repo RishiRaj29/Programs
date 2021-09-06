@@ -1,0 +1,58 @@
+/*                Expression contains redundant bracket or not            */
+
+//Problem Link-> https://www.geeksforgeeks.org/expression-contains-redundant-bracket-not/
+
+//Solution->
+
+#include<bits/stdc++.h>
+using namespace std;
+
+bool check(string str)
+{
+    stack<char>stack;
+    int i=0;
+    while(i<str.length())
+    {
+        if(isalpha(str[i])) // if its a character then simply ignore it
+            i++;
+        else if(str[i]!=')')
+        {
+            stack.push(str[i]); // if its a opening bracket or an operator then push it onto the stack
+            i++;
+        }
+        else
+        {
+            bool flag=false;
+            while(stack.top()!='('&&!stack.empty()) //if the top of the stack has '(' it means that the parenthesis do not hold something significant i.e. they are redundant
+            {
+                stack.pop(); // else pop elements from the stack until you encounter '('
+                flag=true;
+            }
+            if(flag==false)
+                return false;
+            else
+            {
+                stack.pop();
+                flag=false;
+            }
+            i++;
+        }
+    }
+    return true;
+}
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        string str;
+        cin>>str;
+        if(!check(str))
+            cout<<"Yes, the expression has redundant brackets\n";
+        else
+            cout<<"No, the expression doesn't have redundant brackets\n";
+    }
+    return 0;
+}
