@@ -1,0 +1,76 @@
+/*             Level Order Traversal of  Binary Tree                    */
+
+//Solution->
+
+#include<iostream>
+#include<queue>
+
+using namespace std;
+
+struct Node
+{
+    Node *left;
+    Node *right;
+    int data;
+    Node(int value)
+    {
+        this->data=value;
+        this->left=NULL;
+        this->right=NULL;
+    }
+};
+
+void Level_order(Node *root)
+{
+    if(root==NULL)
+        return;
+    queue<Node*>queue;
+    Node *temp=root;
+    cout<<temp->data<<"  ";
+    if(temp->left!=NULL)
+        queue.push(temp->left);
+    if(temp->right!=NULL)
+        queue.push(temp->right);
+    while(1)
+    {
+        if(queue.empty())
+            break;
+        temp=queue.front();
+        cout<<temp->data<<"  ";
+        if(temp->left!=NULL)
+            queue.push(temp->left);
+        if(temp->right!=NULL)
+            queue.push(temp->right);
+        queue.pop();
+    }
+    cout<<endl;
+}
+
+int main()
+{
+    /*   Construct the following Tree->
+
+                        1
+
+                  2           3
+
+              4      5     6      7
+
+           8    9               10    11
+    */
+
+    Node *root=new Node(1);
+    root->left=new Node(2);
+    root->right=new Node(3);
+    root->left->left=new Node(4);
+    root->left->right=new Node(5);
+    root->right->left=new Node(6);
+    root->right->right=new Node(7);
+    root->left->left->left=new Node(8);
+    root->left->left->right=new Node(9);
+    root->right->right->left=new Node(10);
+    root->right->right->right=new Node(11);
+    cout<<"The Level Order Traversal is as follows-\n";
+    Level_order(root);
+    return 0;
+}
