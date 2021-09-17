@@ -1,0 +1,56 @@
+/*             Check if the given string is shuffled substring of another string              */
+
+//Problem Link-> https://www.geeksforgeeks.org/check-if-the-given-string-is-shuffled-substring-of-another-string/
+
+//Approach-> I have applied Rabin-Karp Alogrithm in this question . Please refer that article.
+
+//Solution->
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+bool is_shuffled_substring(string text,string pattern)
+{
+    map<char,int>codes;
+    codes[' ']=0;
+    codes['a']=1;codes['b']=2;codes['c']=3;codes['d']=4;codes['e']=5;codes['f']=6;codes['g']=7;
+    codes['h']=8;codes['i']=9;codes['j']=10;codes['k']=11;codes['l']=12;codes['m']=13;codes['n']=14;
+    codes['o']=15;codes['p']=16;codes['q']=17;codes['r']=18;codes['s']=19;codes['t']=20;codes['u']=21;
+    codes['v']=22;codes['w']=23;codes['x']=24;codes['y']=25;codes['z']=26;
+
+    int value=0,data=0,k;
+
+    for(int i=0;i<pattern.length();i++)
+        value+=codes[pattern[i]];
+
+    int i=0,j=pattern.length();
+
+    for(k=i;k<j;k++)
+        data+=codes[text[k]];
+
+    if(data==value)
+        return true;
+    data-=codes[text[i]];
+    i++;j++;
+
+    while(j<=text.length())
+    {
+        data+=codes[text[j-1]];
+        if(data==value)
+            return true;
+        data-=codes[text[i]];
+        i++;j++;
+    }
+    return false;
+}
+
+int main()
+{
+    string pattern="onetwofour",text="hellofourtwooneworld";
+    if(is_shuffled_substring(text,pattern))
+        cout<<"YES";
+    else
+        cout<<"NO";
+    return 0;
+}
