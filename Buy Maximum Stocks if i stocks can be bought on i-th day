@@ -1,0 +1,64 @@
+/*                 Buy Maximum Stocks if i stocks can be bought on i-th day              */
+
+//Problem Link-> https://www.geeksforgeeks.org/buy-maximum-stocks-stocks-can-bought-th-day/
+
+/* Approach->  Make a pair of all the prices the stock has on a particular day and then sort the pairs on the basis of the prices.
+               Now subtract the prices of each day from k.
+*/
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+void solve()
+{
+    cout<<"Enter the Number of Days-\n";
+    int n;
+    cin>>n;
+    int prices[n+2];
+    cout<<"Enter the Prices-\n";
+    for(int i=1;i<=n;i++)
+        cin>>prices[i];
+    cout<<"Enter the Amount you have-\n";
+    int k;
+    cin>>k;
+    
+    map<int,int>values;
+    for(int i=1;i<=n;i++)
+    {
+        values.insert(make_pair(prices[i],i));
+    }
+    cout<<endl;
+    
+    int count=0;
+    for(auto p:values)
+    {
+        if(p.first>k)
+            break;
+        if(k/(p.first)>p.second)
+        {
+            k-=(p.first*p.second);
+            count+=p.second;
+        }
+        else
+        {
+            int c=k/(p.first);
+            count+=c;
+            k-=(p.first*c);
+        }
+        if(k<=0)
+            break;
+    }
+    cout<<"The Maximum Stocks you can buy is- "<<count<<endl;
+}
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        solve();
+    }
+    return 0;
+}
