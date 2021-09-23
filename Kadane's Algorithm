@@ -1,0 +1,56 @@
+/*                      Kadane's Algorithm                  */
+
+//Problem Link-> https://www.geeksforgeeks.org/largest-sum-contiguous-subarray/
+
+
+/* Approach-> We make to variables sum and max_so_far and inialize to 0 and INT_MIN respectively.
+              We then iterate through the array and update sum. Now if sum > max_so_far update max_so_far.
+              Remember to make sum 0 if sum becomes < 0.              
+*/
+
+//Solution->
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Solution{
+    public:
+
+    long long maxSubarraySum(int arr[], int n)
+    {
+        long long sum=arr[0],max_so_far=arr[0];
+        for(int i=1;i<n;i++)
+        {
+            sum+=arr[i];
+            if(sum>max_so_far)
+            {
+                max_so_far=sum;
+                sum=0;
+            }
+        }
+        return max_so_far;
+    }
+};
+
+
+int main()
+{
+    int t,n;
+    
+    cin>>t; 
+    while(t--) 
+    {
+        
+        cin>>n; 
+        
+        int a[n];
+        
+        for(int i=0;i<n;i++)
+            cin>>a[i]; 
+            
+        Solution ob;
+        
+        cout << ob.maxSubarraySum(a, n) << endl;
+    }
+}
+  
