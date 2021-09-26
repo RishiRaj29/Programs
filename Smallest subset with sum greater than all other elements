@@ -1,0 +1,44 @@
+/*      Smallest subset with sum greater than all other elements        */
+
+//Problem Link-> https://www.geeksforgeeks.org/smallest-subset-sum-greater-elements/
+
+//Solution-> 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+/* Time Complexity-> O(nlogn)*/
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        int i, a[n];
+        for (i = 0; i < n; i++) {
+            cin >> a[i];
+        }
+        int half_sum=0;
+        for (i = 0; i < n; i++)
+            half_sum+=a[i];
+
+        half_sum=half_sum/2;
+
+        sort(a,a+n,greater<int>());
+
+        int sum=0,ans=0;
+
+        for (i = 0; i < n; i++)
+        {
+            if(sum>half_sum)
+                break;
+            sum+=a[i];
+            ans++;
+        }
+
+        cout<<ans<<endl;
+    }
+    return 0;
+}
+  
