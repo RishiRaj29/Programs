@@ -1,0 +1,68 @@
+/*       Maximum product subset of an array       */
+
+//Problem Link-> https://www.geeksforgeeks.org/maximum-product-subset-array/
+
+/*
+Input->
+2
+5
+-1 -1 2 4 3
+3
+-1 0 0
+Output->
+24
+0
+*/
+
+
+//Solution->
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) 
+    {
+        int n;
+        cin >> n;
+        int i, a[n];
+        for (i = 0; i < n; i++) 
+        {
+            cin >> a[i];
+        }
+        
+        int max_neg=INT_MIN,count_neg=0,zeroes=0,prod=1;
+
+        for (i = 0; i < n; i++) 
+            if(a[i]==0)
+                zeroes++;
+
+        for (i = 0; i < n; i++) 
+        {
+            if(a[i]<0)
+            {
+                count_neg++;
+                max_neg=max(max_neg,a[i]);
+            }
+            prod=prod*a[i];
+        }
+
+        if(zeroes==n)
+            prod=0;
+
+        if(count_neg%2!=0)
+        {
+            if(count_neg==1&&zeroes>0&&count_neg+zeroes==n)
+                prod=0;
+
+            prod=prod/max_neg;
+        }
+
+        cout<<prod<<endl;
+    }
+    return 0;
+}
+  
