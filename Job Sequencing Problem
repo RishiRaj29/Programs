@@ -1,0 +1,97 @@
+/*       Job Sequencing Problem        */
+
+//Problem Link-> https://practice.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1
+
+/* 
+Approach -> Arrange the given jobs in descending order w.r.t the profit . 
+Make a Array dipicting the number of days and then try to put job with max profit on the day of deadline or before. Repeat this step for each jop. 
+*/
+
+//Solution-> (GREEDY APPROACH)
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+// A structure to represent a job
+struct Job
+{
+    int id;	 // Job Id
+    int dead; // Deadline of job
+    int profit; // Profit if job is over before or on deadline
+};
+
+
+bool compare(Job A,Job B)
+{
+    return A.profit>B.profit;
+}
+
+class Solution
+{
+    public:
+    //Function to find the maximum profit and the number of jobs done.
+    vector<int> JobScheduling(Job arr[], int n)
+    {
+        sort(arr,arr+n,compare);
+
+        int count_of_jobs=0,max_profit=0,i,j,max_dead=arr[0].dead;
+        vector<int>ans(2);
+
+        for(i=1;i<n;i++) //trying to find the number of days available
+        {
+            if(arr[i].dead>max_dead)
+                max_dead=arr[i].dead;
+        }
+        int seq[max_dead+1];
+        for(i=0;i<=max_dead;i++)
+            seq[i]=-1;
+
+        for(i=0;i<n;i++)
+        {
+            for(j=arr[i].dead;j>=1;j--)
+            {
+                if(seq[j]==-1)
+                {
+                    seq[j]=arr[i].id;
+                    count_of_jobs++;
+                    max_profit+=arr[i].profit;
+                    break;
+                }
+            }
+        }
+
+        ans[0]=count_of_jobs;
+        ans[1]=max_profit;
+        return ans;
+    }
+};
+
+int main()
+{
+    int t;
+    //testcases
+    cin >> t;
+
+    while(t--){
+        int n;
+
+        //size of array
+        cin >> n;
+        Job arr[n];
+
+        //adding id, deadline, profit
+        for(int i = 0;i<n;i++){
+                int x, y, z;
+                cin >> x >> y >> z;
+                arr[i].id = x;
+                arr[i].dead = y;
+                arr[i].profit = z;
+        }
+        Solution ob;
+
+        vector<int> ans = ob.JobScheduling(arr, n);
+        cout<<ans[0]<<" "<<ans[1]<<endl;
+    }
+	return 0;
+}
