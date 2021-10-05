@@ -1,0 +1,89 @@
+/*          Make Matrix Beautiful         */
+
+//Problem Link-> https://www.geeksforgeeks.org/minimum-operations-required-make-row-column-matrix-equals/
+
+/* 
+Approach->  We will calculate sum of each row and coloumn . We will then take the max value out of all the sums of rows and coloumns.
+               No. of operations needed to make sum of all rows = to max value == No. of operations needed to make sum of all coloumns = to max value
+               So calculate No. of operations for any one
+               
+*/
+
+//Solution->
+
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+class Solution
+{
+    public:
+
+    int findMinOpeartion(vector<vector<int> > matrix, int n)
+    {
+         vector<int>sum_row,sum_col;
+        int s=0, ans=0,l;
+        for(int i=0;i<n;i++)
+        {
+            s=0;
+            for(int j=0;j<n;j++)
+            {
+                s+=matrix[i][j];
+            }
+            sum_row.push_back(s);
+        }
+        sort(sum_row.begin(),sum_row.end(),greater<int>());
+    
+        for(int i=0;i<n;i++)
+        {
+            s=0;
+            for(int j=0;j<n;j++)
+            {
+                s+=matrix[j][i];
+            }
+            sum_col.push_back(s);
+        }
+        sort(sum_col.begin(),sum_col.end(),greater<int>());
+        
+        if(sum_row[0]>sum_col[0])
+        {
+            l=sum_row[0];
+            for(int i=0;i<sum_col.size();i++)
+            {
+                ans+=(l-sum_col[i]);
+            }
+        }
+        else
+        {
+            l=sum_col[0];
+            for(int i=0;i<sum_row.size();i++)
+            {
+                ans+=(l-sum_row[i]);
+            }
+        }
+        
+        return ans;
+    } 
+
+};
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        vector<vector<int> > matrix (n,vector<int>(n));
+        for(int i=0;i<n;i++)
+            for(int j=0;j<n;j++)
+                cin>>matrix[i][j];
+        Solution ob;
+        cout << ob.findMinOpeartion(matrix, n) << endl;
+    }
+    return 0;
+}
+
+  
