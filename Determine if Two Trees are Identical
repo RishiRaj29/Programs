@@ -1,0 +1,22 @@
+/*     Determine if Two Trees are Identical     */
+
+//Problem Link-> https://www.geeksforgeeks.org/write-c-code-to-determine-if-two-trees-are-identical/
+
+// Solution->
+
+bool isIdentical(Node *r1, Node *r2)
+{
+    if(r1==NULL && r2==NULL) //if both get NULL at the same time then return true
+        return true;
+
+    if(r1==NULL || r2==NULL) // if not then return false
+        return false;
+
+    if(r1->data==r2->data) // if r1->data == r2->data then check the left and right child of that node
+    {
+        return(isIdentical(r1->left,r2->left) && isIdentical(r1->right,r2->right));
+    }
+
+    else
+        return false;
+}
