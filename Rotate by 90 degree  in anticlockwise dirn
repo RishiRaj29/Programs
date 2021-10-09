@@ -1,0 +1,22 @@
+/*                Rotate by 90 degree             */
+
+// Solution->
+
+void rotate(vector<vector<int> >& matrix)
+{
+    int i,j,n=matrix.size();
+
+    for(i=0;i<n;i++)
+        reverse(matrix[i].begin(),matrix[i].end());  // 1) Reverse each row of the matrix
+
+    for(i=0;i<n; i++) // 2) Now take the Transpose of the matrix
+    {
+        for(j=i+1;j<n;j++)
+        {
+            if(i!=j)
+            {
+                swap(matrix[i][j],matrix[j][i]);
+            }
+        }
+    }
+}
