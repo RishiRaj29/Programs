@@ -1,0 +1,27 @@
+/*      Count BST nodes that lie in a given range    */
+
+// Problem Link-> https://practice.geeksforgeeks.org/problems/count-bst-nodes-that-lie-in-a-given-range/1
+
+/* 
+
+Approach->
+1) if current node's data is in the range then count it and call the fun for left and right child
+2) if data is lower than the lower limit of the range then call the fun for right child
+3) else call the fun for left child
+
+*/
+
+int getCount(Node *root, int l, int h)
+{ 
+    if(root==NULL)
+      return 0;
+
+    if(root->data>=l&&root->data<=h)
+    {
+        return(1+getCount(root->left,l,h)+getCount(root->right,l,h));
+    }
+    else if(root->data<l)
+        getCount(root->right,l,h);
+    else
+        getCount(root->left,l,h);
+}
