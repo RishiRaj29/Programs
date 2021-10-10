@@ -1,0 +1,39 @@
+/*        Delete keys in a Linked list          */
+
+//Problem Link-> https://practice.geeksforgeeks.org/problems/delete-keys-in-a-linked-list/1
+
+// Solution->
+
+Node* deleteAllOccurances(Node *head,int x)
+{
+    Node *temp=head->next,*prev=head,*c;
+    if(head->data==x)
+    {
+        Node *t=head;
+        head=temp;
+        delete t;
+        prev=head;
+    }
+    while(temp->next!=NULL)
+    {
+        if(temp->data==x)
+        {
+            c=temp;
+            temp=temp->next;
+            prev->next=c->next;
+            delete c;
+        }
+        else
+        {
+            prev=temp;
+            temp=temp->next;
+        }
+    }
+    if(temp->data==x)
+    {
+        c=temp;
+        prev->next=c->next;
+        delete c;
+    }
+    return head;
+}
