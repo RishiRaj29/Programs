@@ -1,0 +1,27 @@
+/*      Valid Pair Sum     */
+
+// Problem Link-> https://practice.geeksforgeeks.org/problems/3b76f77c1b2107f809b1875aa9fe929ce320be97/1#
+
+/* Approach-> 1) Sort the Array
+2) For each element from right try to find a number from left such that sum>0. Since the array is sorted all the remaining numbers after the number found at left side will make valid pair.
+*/
+
+//Solution->
+
+long long ValidPair(int a[], int n) 
+    {
+    	sort(a,a+n);
+    	int l=0,r=n-1;
+    	long long count=0;
+    	while(l<r)
+    	{
+    	    if(a[l]+a[r]>0)
+    	    {
+    	        count+=(r-l);
+    	        r--;
+    	    }
+    	    else
+    	        l++;
+    	}
+    	return count;
+    }   
