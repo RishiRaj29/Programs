@@ -1,0 +1,33 @@
+/*          Populate Inorder Successor for all nodes            */
+
+//Problem Link-> https://practice.geeksforgeeks.org/problems/populate-inorder-successor-for-all-nodes/1
+
+/*
+Approach-> In the Left subtree , move to the leaf node and then attach each nde with parent node.
+
+In right subtree as you go down attach the parent node with child node.
+*/
+
+
+// Solution->
+
+void populate(Node *root,Node* &prev)
+{
+    if(root==NULL)
+        return;
+        
+    populate(root->left,prev);
+    
+    if(prev!=NULL)
+        prev->next=root;
+        
+    prev=root;
+    
+    populate(root->right,prev);
+}
+
+ void populateNext(Node *root)
+{
+    Node *prev=NULL;
+    populate(root,prev);
+}
