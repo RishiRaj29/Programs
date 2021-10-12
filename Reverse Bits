@@ -1,0 +1,20 @@
+/*            Reverse Bits             */
+
+// Problem Link-> https://practice.geeksforgeeks.org/problems/reverse-bits3556/1
+
+// Solution->
+
+long long reversedBits(long long x) 
+{
+        
+        string b=bitset<32>(x).to_string();
+        
+        reverse(b.begin(),b.end());
+        
+        bitset<32> bits(b);
+        
+        long long ans=bits.to_ulong();
+        
+        return ans;
+        
+}
