@@ -1,0 +1,34 @@
+/*          k-th smallest element in BST       */
+
+//Problem Link-> https://practice.geeksforgeeks.org/problems/find-k-th-smallest-element-in-bst/1
+
+/* 
+Approach->
+Store the inorder traversal of the BST in a vector . Then find the Kth smallest element in the vector.
+*/
+
+// Solution->
+
+void inorder(Node *root,vector<int>&nums)
+{
+    if(root==NULL)
+        return;
+        
+    inorder(root->left,nums);
+    nums.push_back(root->data);
+    inorder(root->right,nums);
+}
+
+
+
+int KthSmallestElement(Node *root, int k) 
+{
+    vector<int>nums;
+    inorder(root,nums);
+
+    if(k>nums.size())
+        return -1;
+
+    else
+        return nums[k-1];
+}
