@@ -1,0 +1,38 @@
+/*                 Brothers From Different Roots                      */
+
+/*
+Approach->
+Store the inorder traversal of each tree in 2 vectors. 
+Now use 2 pointer theorem and traverse the first vector from smallest to largest and in the second vector from largest to smallest.
+*/
+
+void inorder(Node *root,vector<int>&nums)
+{
+    if(root==NULL)
+        return;
+        
+    inorder(root->left,nums);
+    nums.push_back(root->data);
+    inorder(root->right,nums);
+}
+
+int countPairs(Node* root1, Node* root2, int x)
+{
+    vector<int>nums1,nums2;
+    inorder(root1,nums1);
+    inorder(root2,nums2);
+    int n1=0,n2=nums2.size()-1,count=0;
+    while(n1<nums1.size() && n2>=0)
+    {
+        if(nums1[n1]+nums2[n2]>x)
+            n2--;
+        else if(nums1[n1]+nums2[n2]<x)
+            n1++;
+        else
+        {
+            count++;
+            n1++;n2--;
+        }
+    }
+    return count;
+}
