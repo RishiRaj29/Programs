@@ -1,0 +1,29 @@
+/*  Find the Closest Element in BST   */
+
+// Problem Link-> https://practice.geeksforgeeks.org/problems/find-the-closest-element-in-bst/1
+
+/* 
+Approach->
+In the inorder traversal of the BST subtract k from each  node and store it in a vector . At the end sort the vector.
+*/
+
+void inorder(Node *root,vector<int>&nums,int k)
+{
+    if(root==NULL)
+        return;
+        
+    inorder(root->left,nums,k);
+    if(root->data>k)
+        nums.push_back((root->data)-k);
+    else
+        nums.push_back(k-(root->data));
+    inorder(root->right,nums,k);
+}
+
+int minDiff(Node *root, int k)
+{
+    vector<int>nums;
+    inorder(root,nums,k);
+    sort(nums.begin(),nums.end());
+    return nums[0];
+}
