@@ -1,0 +1,31 @@
+/*             Isomorphic Strings            */
+
+//Problem Link-> https://www.geeksforgeeks.org/check-if-two-given-strings-are-isomorphic-to-each-other/
+
+/*
+Approach->
+1)if strings are of not equal length then return false
+2) Maintain a hash map for both strings that map each of its character to other character in the other string.
+*/
+
+ bool isIsomorphic(string str1, string str2) 
+ {
+      if(str1.length()!=str2.length())
+          return false;
+      map<char,char>hash1,hash2;
+      int i;
+      for(i=0;i<str1.length();i++)
+      {
+          if(hash1.find(str1[i])==hash1.end() && hash2.find(str2[i])==hash2.end()) // if you find a unique pair then store it.
+          {
+              hash1[str1[i]]=str2[i];
+              hash2[str2[i]]=str1[i];
+          }
+          else
+          {
+              if(hash1[str1[i]]!=str2[i] || hash2[str2[i]]!=str1[i]) // if its not a unique then check the pairing
+                  return false;
+          }
+      }
+      return true;
+}
