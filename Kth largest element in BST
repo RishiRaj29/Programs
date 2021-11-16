@@ -1,0 +1,30 @@
+/*  Kth largest element in BST   */
+
+/* Approach->
+Store the inorder traversal in an array and reverse the array. Then find the kth largest element in the array. 
+*/
+
+void inorder(vector<int>&array,Node *root)
+{
+    if(root==NULL)
+        return;
+        
+    inorder(array,root->left);
+    array.push_back(root->data);
+    inorder(array,root->right);
+}
+
+
+int kthLargest(Node *root, int k)
+{
+    vector<int>array;
+    inorder(array,root);
+    reverse(array.begin(),array.end());
+    for(nums:array)
+    {
+        k--;
+        if(k==0)
+            return nums;
+    }
+    return -1;
+}
