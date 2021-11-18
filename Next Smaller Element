@@ -1,0 +1,60 @@
+/*      Next Smaller Element      */
+
+// Problem Link-> https://www.geeksforgeeks.org/next-smaller-element/
+
+/* 
+Approach->
+Start traversing the array from end to start. For first element store -1 in ans array and push this element in stack
+Now 
+1) Pop the elements from the stack until it gets empty or top of stack > current element
+2) If you encounter the top of stack < current element then then store it in ans. If stack gets empty then store -1 in ans.
+3) push the current element in the stack
+Repeat steps 1) , 2) and 3) for all the array elements
+At the end reverse the ans array.
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void next_smaller_element(int arr[],int n)
+{
+    vector<int>ans;
+    stack<int>stack;
+
+    int i=n-1;
+    stack.push(arr[i]);
+    ans.push_back(-1);
+
+    for(i=n-2;i>=0;i--)
+    {
+        while(!stack.empty() && stack.top()>arr[i])
+        {
+            stack.pop();
+        }
+        if(stack.empty())
+            ans.push_back(-1);
+        else
+            ans.push_back(stack.top());
+        stack.push(arr[i]);
+    }
+    reverse(ans.begin(),ans.end());
+    for(auto nums:ans)
+        cout<<nums<<"  ";
+}
+
+int main() {
+    int tc;
+    scanf("%d ", &tc);
+    while (tc--) {
+
+        int n;
+        cin>>n;
+        int arr[n+1];
+        for(int i=0;i<n;i++)
+            cin>>arr[i];
+        cout<<"The Next Smaller Elements for each Element are as follows-\n";
+        next_smaller_element(arr,n);
+        cout<<endl;
+    }
+    return 0;
+}
