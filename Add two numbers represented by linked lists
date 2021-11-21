@@ -1,0 +1,128 @@
+/*     Add two numbers represented by linked lists      */
+
+// Problem Link-> https://practice.geeksforgeeks.org/problems/add-two-numbers-represented-by-linked-lists/1
+
+// Solution->
+
+struct Node* ReverseList(struct Node *head)
+{
+    if(head==NULL || head->next==NULL)
+        return head;
+    struct Node *p=head,*c=head->next,*n=c->next;
+    p->next=NULL;
+    while(c->next!=NULL)
+    {
+        c->next=p;
+        p=c;
+        c=n;
+        n=n->next;
+    }
+    c->next=p;
+    head=c;
+    return head;
+}
+
+class Solution
+{
+    public:
+    struct Node* addTwoLists(struct Node* first, struct Node* second)
+    {
+        //Reverse both the given linked list
+        
+        first=ReverseList(first);
+        second=ReverseList(second);
+        Node *ans_head=NULL,*ans=NULL;
+        int x;
+        bool flag=false;
+    
+        //Now add both list's Node's data and store it in a new_node which will make your Answer LL
+        //Keep in mind the carry which will be generated in the addition
+    
+        while(first && second)
+        {
+            if(flag)
+                x=(first->data)+(second->data)+1;
+            else
+                x=(first->data)+(second->data);
+            struct Node *new_node=(struct Node*)malloc(sizeof(struct Node));
+            if(ans_head==NULL)
+            {
+                new_node->next=NULL;
+                ans_head=new_node;
+            }
+            else
+            {
+                new_node->next=ans_head;
+                ans_head=new_node;
+            }
+            if(x>9)
+            {
+                new_node->data=(x%10);
+                flag=true;
+            }
+            else
+            {
+                new_node->data=x;
+                flag=false;
+            }
+            first=first->next;
+            second=second->next;
+        }
+        
+        //One of the list will get exhausted and then you need to either copy values or add 1
+        //to the remaining nodes and store it in the third list
+        
+        while(first)
+        {
+            if(flag)
+                x=(first->data)+1;
+            else
+                x=(first->data);
+            struct Node *new_node=(struct Node*)malloc(sizeof(struct Node));
+            new_node->next=ans_head;
+            ans_head=new_node;
+            if(x>9)
+            {
+                new_node->data=(x%10);
+                flag=true;
+            }
+            else
+            {
+                new_node->data=x;
+                flag=false;
+            }
+            first=first->next;
+        }
+        
+        while(second)
+        {
+            if(flag)
+                x=(second->data)+1;
+            else
+                x=(second->data);
+            struct Node *new_node=(struct Node*)malloc(sizeof(struct Node));
+            new_node->next=ans_head;
+            ans_head=new_node;
+            if(x>9)
+            {
+                new_node->data=(x%10);
+                flag=true;
+            }
+            else
+            {
+                new_node->data=x;
+                flag=false;
+            }
+            second=second->next;
+        }
+        
+        if(flag)
+        {
+            struct Node *new_node=(struct Node*)malloc(sizeof(struct Node));
+            new_node->next=ans_head;
+            ans_head=new_node;
+            new_node->data=1;
+        }
+        return ans_head;
+    }
+};
