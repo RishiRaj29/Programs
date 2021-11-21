@@ -1,0 +1,36 @@
+/*      Minimum Platforms      */
+
+// Problem Link-> https://practice.geeksforgeeks.org/problems/minimum-platforms-1587115620/1
+
+/* 
+Approach->
+1) Sort the arr and dep
+2) Use two pointer theorm , count=1,i=1(for arr),j=0(for dep),ans (to store the maximum of all count values). Start a loop.
+3) If dep[j]<arr[i] that means on that platform a train departs and another train comes after it. So decrement count of platforms.
+4) else dep[j]>arr[i] that means a platform is already occupied when the other train comes . so here increment count of platforms.
+*/
+
+// Solution->
+
+int findPlatform(int arr[], int dep[], int n)
+{
+      int count=1,ans=0,i=1,j=0;
+      sort(arr,arr+n);
+      sort(dep,dep+n);
+      while(i<n && j<n)
+      {
+          if(arr[i]>dep[j])
+          {
+              count--;
+              j++;
+          }
+          else
+          {
+              count++;
+              i++;
+          }
+          if(count>ans)
+              ans=count;
+      }
+      return ans;
+}
