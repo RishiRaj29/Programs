@@ -1,0 +1,96 @@
+/*      Rotate Doubly linked list by N nodes      */
+
+// Problem Link-> https://www.geeksforgeeks.org/rotate-doubly-linked-list-n-nodes/
+
+/*
+Approach->
+1) Rotate the DLL to Circular DLL
+2) Now from head move n nodes forward
+3) Shift head to the node you end up
+4) Put NULL in the next of prev node where you stopped
+*/
+
+// Solution->
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *prev;
+    struct Node *next;
+};
+
+void Insert(struct Node **head,int value)//This code Inserts the element at last of the list
+{
+    struct Node *new_node,*temp=*head;
+    new_node=(struct Node*)malloc(sizeof(struct Node));
+    new_node->data=value;
+    new_node->next=NULL;
+    if((*head)==NULL)
+    {
+        new_node->prev=NULL;
+        *head=new_node;
+    }
+    else
+    {
+        while(temp->next!=NULL)
+             temp=temp->next;
+        new_node->prev=temp;
+        temp->next=new_node;
+    }
+}
+
+void rotate(Node **head,int n)
+{
+    Node *temp=*head,*t=*head;
+    while(temp->next!=NULL)
+        temp=temp->next;
+    temp->next=*head;
+    temp=*head;
+    temp=temp->next;
+    n-=1;
+    while(n--)
+    {
+        t=t->next;
+        temp=temp->next;
+    }
+    *head=temp;
+    temp->prev=NULL;
+    t->next=NULL;
+}
+
+
+void display(Node *head)
+{
+    while(head->next!=NULL)
+    {
+        cout<<head->data<<"->";
+        head=head->next;
+    }
+    cout<<head->data<<endl;
+}
+
+int main()
+{
+    struct Node *head=NULL;
+    Insert(&head,1);
+    Insert(&head,2);
+    Insert(&head,3);
+    Insert(&head,4);
+    Insert(&head,5);
+    Insert(&head,6);
+    Insert(&head,7);
+    Insert(&head,8);
+    int n;
+    cout<<"Enter the Value of n-";
+    cin>>n;
+    cout<<"The Original List is as follows-\n";
+    display(head);
+    rotate(&head,n);
+    cout<<"After Rotation the List is as follows-\n";
+    display(head);
+    return 0;
+}
