@@ -1,0 +1,110 @@
+/*         Polynomial Addition         */
+
+// Problem Link-> https://www.geeksforgeeks.org/adding-two-polynomials-using-linked-list/
+
+/*
+Approach->
+1)Traverse both the list
+2) if both pow are equal make a node with that pow and coeff of both the lists's node will be added
+3) if not equal then copy the node into newnode with greater pow
+*/
+
+// Solution->
+
+Node* addPolynomial(Node *p1, Node *p2)
+  {
+      Node *ans_head=NULL,*ans=NULL;
+      while(p1 && p2)
+      {
+          if(p1->pow==p2->pow)
+          {
+              Node *new_node=(Node*)malloc(sizeof(struct Node));
+              new_node->next=NULL;
+              if(ans_head==NULL)
+              {
+                  ans_head=new_node;
+              }
+              else
+              {
+                  ans->next=new_node;
+              }
+              ans=new_node;
+              new_node->coeff=(p1->coeff)+(p2->coeff);
+              new_node->pow=p1->pow;
+              p1=p1->next;
+              p2=p2->next;
+          }
+          else if(p1->pow>p2->pow)
+          {
+              Node *new_node=(Node*)malloc(sizeof(struct Node));
+              new_node->next=NULL;
+              if(ans_head==NULL)
+              {
+                  ans_head=new_node;
+              }
+              else
+              {
+                  ans->next=new_node;
+              }
+              ans=new_node;
+              new_node->coeff=(p1->coeff);
+              new_node->pow=p1->pow;
+              p1=p1->next;
+          }
+          else
+          {
+              Node *new_node=(Node*)malloc(sizeof(struct Node));
+              new_node->next=NULL;
+              if(ans_head==NULL)
+              {
+                  ans_head=new_node;
+              }
+              else
+              {
+                  ans->next=new_node;
+              }
+              ans=new_node;
+              new_node->coeff=(p2->coeff);
+              new_node->pow=p2->pow;
+              p2=p2->next;
+          }
+      }
+
+      while(p1)
+      {
+          Node *new_node=(Node*)malloc(sizeof(struct Node));
+          new_node->next=NULL;
+          if(ans_head==NULL)
+          {
+              ans_head=new_node;
+          }
+          else
+          {
+              ans->next=new_node;
+          }
+          ans=new_node;
+          new_node->coeff=(p1->coeff);
+          new_node->pow=p1->pow;
+          p1=p1->next;
+      }
+
+      while(p2)
+      {
+          Node *new_node=(Node*)malloc(sizeof(struct Node));
+          new_node->next=NULL;
+          if(ans_head==NULL)
+          {
+              ans_head=new_node;
+          }
+          else
+          {
+              ans->next=new_node;
+          }
+          ans=new_node;
+          new_node->coeff=(p2->coeff);
+          new_node->pow=p2->pow;
+          p2=p2->next;
+      }
+
+      return ans_head;
+  }
