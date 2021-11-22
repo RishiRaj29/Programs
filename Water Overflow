@@ -1,0 +1,37 @@
+/*      Water Overflow      */
+
+// Problem Link-> https://www.geeksforgeeks.org/find-water-in-a-glass/
+
+/*
+Approach->
+Make a matrix and put k at (0,0).Then iterate for rows<r cols can have values <=rows.
+For each cell check the value it contains. If val> capacity(which is 1) then do val=val-cap and then put val/2 in matrix[rows+1][cols] and matrix[rows+1][cols+1].
+Then put matrix[rows][cols]=cap.
+*/
+
+// Solution->
+
+double waterOverflow(int n, int r, int c) 
+{
+      int rows,cols;
+      double matrix[n+1][n+1]={0},cap=1.0;
+      
+      matrix[0][0]=n;
+      
+      for(rows=0;rows<r;rows++)
+      {
+          for(cols=0;cols<=rows;cols++)
+          {
+              if(matrix[rows][cols]>cap)
+              {
+                  matrix[rows+1][cols]+=(double)(matrix[rows][cols]-cap)/2.0;
+                  
+                  matrix[rows+1][cols+1]+=(double)(matrix[rows][cols]-cap)/2.0;
+                  
+                  matrix[rows][cols]=cap;
+              }
+          }
+      }
+
+      return matrix[r-1][c-1];
+}
