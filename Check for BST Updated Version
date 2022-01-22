@@ -1,0 +1,21 @@
+ /*    Validate Binary Search Tree   */
+ 
+ 
+ /* As the value of a node can be equal to INT_MIN or INT_MAX hence we prefer the use of LONG_MIN and LONG_MAX .  */
+ 
+ bool check(TreeNode *root,long lower,long upper)
+{
+    if(root==NULL)
+        return true;
+    if(root->val<=lower||root->val>=upper) 
+    {
+        return false;
+    }
+    return(check(root->left,lower,root->val)&&check(root->right,root->val,upper));
+}
+ 
+ 
+ bool isValidBST(TreeNode* root) 
+{
+    return check(root,LONG_MIN,LONG_MAX);
+}
