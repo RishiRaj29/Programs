@@ -1,0 +1,38 @@
+/*      All Subsequences of a given String       */ 
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void subsequence(int index,int n,int arr[],vector<int>&sub)
+{
+    if(index==n)
+    {
+        if(sub.size()==0)
+            cout<<"NULL\n";
+        else
+        {
+            for(auto i:sub)
+                cout<<i<<"  ";
+            cout<<endl;
+        }
+        return;
+    }
+
+    sub.push_back(arr[index]);
+    subsequence(index+1,n,arr,sub);
+    sub.pop_back();
+    subsequence(index+1,n,arr,sub);
+}
+
+int main()
+{
+    int n=5,arr[]={1,2,3,4,5},index=0;
+
+    vector<int>sub;
+
+    subsequence(index,n,arr,sub);
+
+    return 0;
+}
