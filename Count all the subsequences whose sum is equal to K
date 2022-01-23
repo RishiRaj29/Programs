@@ -1,0 +1,34 @@
+/*       Count all the subsequences whose sum is equal to K       */
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/* Count all the subsequences whose sum is equal to K */
+
+int count_sub(int index,int arr[],vector<int>&ds,int k,int sum,int n)
+{
+    if(index==n && sum==k)
+    {
+        return 1;
+    }
+    
+    if(index==n && sum!=k)
+        return 0;
+        
+    ds.push_back(arr[index]);
+    int left=count_sub(index+1,arr,ds,k,sum+arr[index],n);
+    
+    ds.pop_back();
+    int right=count_sub(index+1,arr,ds,k,sum,n);
+    
+    return (left+right);
+}
+
+int main()
+{
+    int arr[]={17,18,6,11,2,4},k=6,n=6;
+    vector<int>ds;
+    cout<<count_sub(0,arr,ds,k,0,n);
+    return 0;
+}
