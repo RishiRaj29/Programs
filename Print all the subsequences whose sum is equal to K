@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+/* Print all the subsequences whose sum is equal to K */
+
+void print_sub(int index,int arr[],vector<int>&ds,int k,int sum,int n)
+{
+    if(index==n && sum==k)
+    {
+        for(auto i:ds)
+            cout<<i<<"  ";
+        cout<<endl;
+        return;
+    }
+    
+    if(index==n && sum!=k)
+        return;
+        
+    ds.push_back(arr[index]);
+    print_sub(index+1,arr,ds,k,sum+arr[index],n);
+    
+    ds.pop_back();
+    print_sub(index+1,arr,ds,k,sum,n);
+    
+}
+
+int main()
+{
+    int arr[]={17,18,6,11,2,4},k=6,n=6;
+    vector<int>ds;
+    print_sub(0,arr,ds,k,0,n);
+    return 0;
+}
