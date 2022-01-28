@@ -1,0 +1,32 @@
+/*     Number of Ways to Reach the End     */
+
+// Solution->
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int num_of_ways(int n,int m)
+{
+    if(m==0 && n==0)
+        return 0;
+        
+    if(m==0 || n==0)
+        return 1;
+        
+    return num_of_ways(n-1,m)+num_of_ways(n,m-1);
+}
+
+int main()
+{
+    cout<<"The By default Starting Position is (0,0)\n";
+    
+    cout<<"Enter the Ending vertex-";
+    int n,m;
+    cin>>n>>m;
+    
+    cout<<"The Total Number of ways to Reach the End Vertex is- "<<num_of_ways(n,m);
+    cout<<endl;
+    
+    return 0;
+    
+}
