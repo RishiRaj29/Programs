@@ -1,0 +1,28 @@
+/*      Median of Two Sorted Arrays LeetCode     */
+
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        
+        vector<int>v;//Merge the two arrays in a third array
+        v.insert(v.begin(), nums1.begin(), nums1.end());
+        v.insert(v.end(), nums2.begin(), nums2.end());
+        
+        sort(v.begin(),v.end());//sort this array
+
+        int n=v.size();
+        
+        if(n%2!=0)//if size is odd then mid index element will be the ans
+        {
+            int mid=(n+1)/2;
+            double ans=(double)v[mid-1];
+            return ans;
+        }
+        else// if size is even then mean of elements at mid-1 and mid will be the ans
+        {
+            int mid=n/2;
+            double ans=(double)(v[mid-1]+v[mid])/2;
+            return ans;
+        }
+    }
+};
