@@ -1,0 +1,28 @@
+/*    Triangle LeetCode     */
+
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int row=triangle.size(),col=triangle[row-1].size();
+        
+        // Since there is only one start point and many ending points(in the last row) hence we will construct
+        // dp from the last row and move up to the first row and return dp[0][0]
+        
+        vector<vector<int>> dp(row+1,vector<int>(col+1,-1));
+        
+        int i,k=col-1,j;
+        
+        for(i=row-1;i>=0;i--,k--)
+        {
+            for(j=0;j<=k;j++)
+            {
+                if(i==row-1)
+                    dp[i][j]=triangle[i][j];
+                else
+                    dp[i][j]=triangle[i][j]+min(dp[i+1][j],dp[i+1][j+1]);
+            }
+        }
+        
+        return dp[0][0];
+    }
+};
