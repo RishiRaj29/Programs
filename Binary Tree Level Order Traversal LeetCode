@@ -1,0 +1,31 @@
+/*      Binary Tree Level Order Traversal LeetCode        */
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        if(root==NULL)
+            return ans;
+        queue<TreeNode*>queue;
+        vector<int>temp;
+        TreeNode *t=root;
+        queue.push(root);
+         while(queue.empty()==false)
+        {
+            int len=queue.size(); 
+            for(int i=0;i<len;i++)
+            {
+                t=queue.front();
+                if(t->left)
+                    queue.push(t->left);
+                if(t->right)
+                    queue.push(t->right);
+                queue.pop();
+                temp.push_back(t->val);
+            }
+            ans.push_back(temp);
+            temp.clear();
+        }
+        return ans;
+    }
+};
