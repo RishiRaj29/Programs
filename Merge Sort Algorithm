@@ -1,0 +1,91 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void merge_arrays(vector<int> &nums,int left,int mid ,int right)
+{
+    int i=left,j=mid+1;
+
+    vector<int> temp;
+
+    while(i<=mid and j<=right)
+    {
+        if(nums[i]<nums[j])
+        {
+            temp.push_back(nums[i]);
+            i++;
+        }
+        else if(nums[i]==nums[j])
+        {
+            temp.push_back(nums[i]);
+            temp.push_back(nums[j]);
+            i++;
+            j++;
+        }
+        else
+        {
+            temp.push_back(nums[j]);
+            j++;
+        }
+    }
+
+    while(i<=mid)
+    {
+        temp.push_back(nums[i]);
+        i++;
+    }
+
+    while(j<=right)
+    {
+        temp.push_back(nums[j]);
+        j++;
+    }
+    int k=left;
+    for(auto val:temp)
+    {
+        nums[k]=val;
+        k++;
+    }
+}
+
+void merge_sort(vector<int> &nums,int left,int right)
+{
+    if(left==right)
+        return;
+
+    int mid=left+(right-left)/2;
+    merge_sort(nums,left,mid);
+    merge_sort(nums,mid+1,right);
+    merge_arrays(nums,left,mid,right);
+}
+
+int main()
+{
+    cout<<"---- MERGE SORT ----\n";
+
+    cout<<"Enter the Number of Elements in the Array-\n";
+    int n,ele;
+    cin>>n;
+
+    cout<<"Enter the Array Elements-\n";
+    vector<int> nums;
+    for(int i=0;i<n;i++)
+    {
+        cin>>ele;
+        nums.push_back(ele);
+    }
+
+    cout<<"The Array elements before applying Merge Sort are-\n";
+    for(int i=0;i<n;i++)
+        cout<<nums[i]<<"  ";
+    cout<<endl;
+
+    merge_sort(nums,0,n-1);
+
+    cout<<"The Array elements after applying Merge Sort are-\n";
+    for(int i=0;i<n;i++)
+        cout<<nums[i]<<"  ";
+    cout<<endl;
+
+    return 0;
+}
